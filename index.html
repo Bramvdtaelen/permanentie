@@ -2,63 +2,82 @@
 <html lang="nl-BE">
 
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Permanentieverslag</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 
 </head>
 
-<body style="overflow-y: scroll">
-  <div class="text-center m-5">
-    <h1>Permanentieverslag FONS</h1>  
-  </div>
+<body>
 
+  <div class="text-center m-5">
+    <h3 class="display-3"><b>Permanentieverslag FONS</b></h3>
+  </div>
   <div class="container-fluid">
     <div class="row">
-      <div class="col"></div>
-      <div class="col">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 bg-light rounded">
         <form>
-          <div class="mb-4">
-            <label class="form-label">Datum</label>
-            <input type="date" class="form-control" id="datumID">
 
-            <!-- <div id="help" class="form-text">comment tekstje</div> -->
+          <div class="m-4">
+            <label class="form-label"><b>Datum</b></label>
+            <input type="date" class="form-control" id="datum">
+          </div>
 
+          <div class="m-4">
+            <label class="form-label"><b>Incidenten</b></label>
+            <textarea type="text" class="form-control" id="incidenten" placeholder="Typ hier je incidenten"></textarea>
           </div>
-          <div class="mb-2">
-            <label class="form-label">Incidenten</label>
-            <textarea type="text" class="form-control"></textarea>
+
+          <div class="m-4">
+            <!-- Button trigger modal -->
+            <button type="button" class="form-control btn btn-primary" data-bs-toggle="modal"
+              data-bs-target="#verzondenModal">Verzenden</button>
           </div>
+
       </div>
-      <div class="col"></div>
+      <div class="col-md-3"></div>
     </div>
     </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="verzondenModal" tabindex="-1" aria-labelledby="verzondenModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="verzondenModalLabel">Permanentieverslag verzonden</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <!--<div class="modal-body">
+            ...
+          </div> -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/moment.js"></script>
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   <script type="text/javascript">
     window.onload = function () {
-      document.getElementById("datumID").value = moment().format('YYYY-MM-DD');
+      document.getElementById("datum").value = moment().format('YYYY-MM-DD');
+
+      var mde = new SimpleMDE({
+        element: document.getElementById("incidenten"),
+        spellChecker: false,
+        status: false
+      });
+
     }
   </script>
 
