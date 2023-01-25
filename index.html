@@ -9,14 +9,16 @@
   <title>Permanentieverslag</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+
+  <!-- Include Quill stylesheet -->
+  <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
 
 </head>
 
 <body>
 
   <div class="text-center m-5">
-    <h3 class="display-3"><b>Permanentieverslag FONS</b></h3>
+    <h5 class="display-5"><b>Permanentieverslag FONS</b></h5>
   </div>
   <div class="container-fluid">
     <div class="row">
@@ -26,12 +28,31 @@
 
           <div class="m-4">
             <label class="form-label"><b>Datum</b></label>
-            <input type="date" class="form-control" id="datum">
+            <input type="date" class="form-control border border-secondary" id="datum">
           </div>
 
+          <!--
           <div class="m-4">
             <label class="form-label"><b>Incidenten</b></label>
             <textarea type="text" class="form-control" id="incidenten" placeholder="Typ hier je incidenten"></textarea>
+          </div> 
+          -->
+
+          <div class="m-4">
+            <!-- Create the toolbar container -->
+            <label class="form-label"><b>Incidenten</b></label>
+            <div id="toolbar" class="form-control border border-secondary">
+              <button class="ql-bold"></button>
+              <button class="ql-italic"></button>
+              <button class="ql-underline"></button>
+              <button class="ql-list" value="bullet"></button>
+              <button class="ql-list" value="ordered"></button>
+            </div>
+
+            <!-- Create the editor container -->
+            <div id="editor" class="form-control border border-secondary" style="height: 300px">
+              <p></p>
+            </div>
           </div>
 
           <div class="m-4">
@@ -57,7 +78,7 @@
             ...
           </div> -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
           </div>
         </div>
       </div>
@@ -67,18 +88,23 @@
 
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/moment.js"></script>
-  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+  <!-- Include the Quill library -->
+  <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+
   <script type="text/javascript">
     window.onload = function () {
       document.getElementById("datum").value = moment().format('YYYY-MM-DD');
-
-      var mde = new SimpleMDE({
-        element: document.getElementById("incidenten"),
-        spellChecker: false,
-        status: false
-      });
-
     }
+  </script>
+
+  <script>
+    var editor = new Quill('#editor', {
+      modules: { 
+        toolbar: '#toolbar' },
+        theme: 'snow',
+        placeholder: 'Schrijf hier de incidenten neer...'
+    });
   </script>
 
 </body>
